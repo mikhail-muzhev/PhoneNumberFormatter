@@ -10,7 +10,7 @@ import UIKit
 
 /**
  UITextField subclass to handle phone numbers formats
-*/
+ */
 public class PhoneFormattedTextField: UITextField {
 
     private let formatProxy: FormattedTextFieldDelegate

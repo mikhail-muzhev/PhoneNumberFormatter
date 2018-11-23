@@ -8,18 +8,18 @@
 
 import UIKit
 
-struct PhoneFormatterResult {
-    let text: String
+public struct PhoneFormatterResult {
+    public let text: String
 
     init(text: String) {
         self.text = text
     }
 }
 
-final class PhoneFormatter {
+final public class PhoneFormatter {
 
     let config: ConfigurationRepo
-    init(config: ConfigurationRepo) {
+    public init(config: ConfigurationRepo) {
         self.config = config
     }
 
@@ -33,7 +33,7 @@ final class PhoneFormatter {
         return valuableChars.contains(char) ? true : false
     }
 
-    func digitOnlyString(text: String?) -> String? {
+    public func digitOnlyString(text: String?) -> String? {
         guard let text = text else {
             return nil
         }
@@ -69,7 +69,7 @@ final class PhoneFormatter {
         return repo.getDefaultConfig()
     }
 
-    func formatText(text: String, prefix: String? = nil) -> PhoneFormatterResult {
+    public func formatText(text: String, prefix: String? = nil) -> PhoneFormatterResult {
         let lastPossibleFormat = getAppropriateConfig(text: text, in: config)
 
         let cleanNumber = removeFormatFrom(text: text, format: lastPossibleFormat, prefix: prefix) ?? ""
@@ -155,35 +155,35 @@ final class PhoneFormatter {
     }
 
     func popCaretPosition(textField: UITextField, range: NSRange, caretPosition: Int)
-                            -> (startPosition: UITextPosition, endPosition: UITextPosition)? {
-        var currentRange: NSRange = range
-        if range.length == 0 {
-            currentRange.length = 1
-        }
-
-        let text = textField.text ?? ""
-        var lasts = caretPosition
-        var start = text.count
-        var index = start - 1
-
-        while start >= 0 && lasts > 0 {
-            let indexChar = text.index(text.startIndex, offsetBy: index)
-            let character = text[indexChar]
-            if isValuableChar(char: character) {
-                lasts -= 1
+        -> (startPosition: UITextPosition, endPosition: UITextPosition)? {
+            var currentRange: NSRange = range
+            if range.length == 0 {
+                currentRange.length = 1
             }
 
-            if lasts <= 0 {
-                start = index
-            }
-            index -= 1
-        }
+            let text = textField.text ?? ""
+            var lasts = caretPosition
+            var start = text.count
+            var index = start - 1
 
-        if let startPosition = textField.position(from: textField.beginningOfDocument, offset: start),
-            let endPosition = textField.position(from: startPosition, offset: 0) {
-            return (startPosition, endPosition)
-        } else {
-            return nil
-        }
+            while start >= 0 && lasts > 0 {
+                let indexChar = text.index(text.startIndex, offsetBy: index)
+                let character = text[indexChar]
+                if isValuableChar(char: character) {
+                    lasts -= 1
+                }
+
+                if lasts <= 0 {
+                    start = index
+                }
+                index -= 1
+            }
+
+            if let startPosition = textField.position(from: textField.beginningOfDocument, offset: start),
+                let endPosition = textField.position(from: startPosition, offset: 0) {
+                return (startPosition, endPosition)
+            } else {
+                return nil
+            }
     }
 }

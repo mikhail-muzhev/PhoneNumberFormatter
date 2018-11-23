@@ -11,17 +11,17 @@ import UIKit
 /**
  List of all possible formatters of the TextField.
  Contains at least default one.
-*/
+ */
 final public class ConfigurationRepo {
 
     private var customConfigs: [PhoneFormat] = []
 
     /**
-      Default configuration
+     Default configuration
      */
     public var defaultConfiguration: PhoneFormat = PhoneFormat(defaultPhoneFormat: "#############")
 
-    init() {
+    public init() {
     }
 
     init(defaultFormat: PhoneFormat) {
@@ -37,7 +37,7 @@ final public class ConfigurationRepo {
     }
 
     /**
-      Add new custom format
+     Add new custom format
      */
     public func add(format: PhoneFormat) {
         customConfigs.append(format)

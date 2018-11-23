@@ -10,7 +10,7 @@ import UIKit
 
 /**
  Phone Format Class. Conatin format and related regexp
-*/
+ */
 public struct PhoneFormat {
 
     /**

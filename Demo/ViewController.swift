@@ -17,6 +17,7 @@ class ViewController: UIViewController {
 
         textField.becomeFirstResponder()
 
+        prefixExample()
         textField.textDidChangeBlock = { field in
             if let text = field?.text {
                 print(text)
@@ -35,7 +36,7 @@ class ViewController: UIViewController {
 
     func prefixExample() {
         textField.config.defaultConfiguration = PhoneFormat(defaultPhoneFormat: "(###) ###-##-##")
-        textField.prefix = "+7 "
+        textField.prefix = "+"
         let custom = PhoneFormat(phoneFormat: "(###) ###-##-##", regexp: "^[0-689]\\d*$")
         textField.config.add(format: custom)
     }

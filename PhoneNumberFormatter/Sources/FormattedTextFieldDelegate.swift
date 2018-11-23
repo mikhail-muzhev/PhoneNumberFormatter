@@ -8,20 +8,20 @@
 
 import UIKit
 
-final class FormattedTextFieldDelegate: NSObject, UITextFieldDelegate {
-    weak var userDelegate: UITextFieldDelegate?
+final public class FormattedTextFieldDelegate: NSObject, UITextFieldDelegate {
+    public weak var userDelegate: UITextFieldDelegate?
 
-    var textDidChangeBlock: ((_ textField: UITextField?) -> Void)?
-    var prefix: String?
-    var hasPredictiveInput: Bool = true
+    public var textDidChangeBlock: ((_ textField: UITextField?) -> Void)?
+    public var prefix: String?
+    public var hasPredictiveInput: Bool = true
 
     private let formatter: PhoneFormatter
-    init(formatter: PhoneFormatter) {
+    public init(formatter: PhoneFormatter) {
         self.formatter = formatter
     }
 
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
-                   replacementString string: String) -> Bool {
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
+                          replacementString string: String) -> Bool {
         if let prefix = prefix, range.location < prefix.count {
             return false
         }
@@ -55,23 +55,23 @@ final class FormattedTextFieldDelegate: NSObject, UITextFieldDelegate {
 
     // MARK: UITextfield Delegate
 
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         return userDelegate?.textFieldShouldBeginEditing?(textField) ?? true
     }
 
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
         userDelegate?.textFieldDidBeginEditing?(textField)
     }
 
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+    public func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         return userDelegate?.textFieldShouldEndEditing?(textField) ?? true
     }
 
-     func textFieldDidEndEditing(_ textField: UITextField) {
+    public func textFieldDidEndEditing(_ textField: UITextField) {
         userDelegate?.textFieldDidEndEditing?(textField)
     }
 
-    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+    public func textFieldShouldClear(_ textField: UITextField) -> Bool {
         if let userResult = userDelegate?.textFieldShouldClear?(textField) {
             return userResult
         }
@@ -84,7 +84,7 @@ final class FormattedTextFieldDelegate: NSObject, UITextFieldDelegate {
         }
     }
 
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return userDelegate?.textFieldShouldReturn?(textField) ?? true
     }
 }
